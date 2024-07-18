@@ -1,20 +1,60 @@
-<title>Games</title>
-<style>
-    @import url(https://fonts.googleapis.com/css?family=Cute+Font);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Rush</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Cute+Font);
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #000428, #004e92);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
 
-    
+        .container {
+            text-align: left;
+            max-width: 500px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+        }
 
-    canvas{
-        border:5px;
-        border-style:solid;
-        border-color: rgb(30, 30, 30);
-    }
-</style>
-<span style = "font-family:Cute Font;"></span>
+        .canvas-container {
+            margin: 20px 0;
+        }
+
+        canvas {
+            border: 2px solid white;
+        }
+
+        .description, .links {
+            margin: 10px 0;
+        }
+    </style>
+</head>
 <body>
-    <div id=canvas>
-        <body onload="return startGame()">
-            <script src="blockRush.js"></script>
-        </body>
+    <div class="container">
+        <h1>Block Rush</h1>
+        <div class="canvas-container">
+            <div id=canvas>
+                <body onload="return startGame()">
+                    <script src="blockRush.js"></script>
+                </body>
+            </div>
+        </div>
+        <div class="description">
+            <p>How to play:</p>
+            <p>Use arrow keys and space to navigate menus. During gameplay, use arrow keys to move and space to launch a ball.</p>
+            <p></p>
+        </div>
     </div>
 </body>
+</html>
