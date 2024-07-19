@@ -228,7 +228,7 @@ function createExplosion(x, y, size){
                     colliding.push(i);
                 }
             }
-            destroyBlocks(colliding, true);
+            destroyBlocks(colliding);
         }
         ++this.state;
     }
@@ -568,10 +568,12 @@ function createGame(){
             case 3://Paused
                 this.updatePaused();
                 break;
+            
+            case 4://testing
                 
         }
     }
-    this.drawOutline = function(){
+    this.drawOutline = function(variation){
         
         var ctx = gameCanvas.context;
         var thickness = 1;
@@ -1049,6 +1051,7 @@ function createGame(){
         this.drawOutline();
     }
     this.updatePaused = function(){
+        //this.drawOutline();
 
         this.drawBg(0, false);
         this.drawGui();
@@ -1108,7 +1111,6 @@ function createGame(){
 }
 
 function createBlock(x, y, width, height, hits, type, color){
-    ctx = gameCanvas.context; //Set Context
     this.x = x;
     this.y = y;
     this.width = width;
@@ -1116,7 +1118,6 @@ function createBlock(x, y, width, height, hits, type, color){
     this.hits = hits;
     this.type = type;
     this.color = color;
-    
     this.draw = function(){
         var cuttoff = Math.max(0, gameY - this.y + 1);
 
@@ -1126,7 +1127,16 @@ function createBlock(x, y, width, height, hits, type, color){
         var outline = 1;
 
         ctx = gameCanvas.context; //Set Context
-        let grd = ctx.createLinearGradient(this.x + this.width / 2, this.y, this.x + this.width / 2, this.y + this.height);
+        
+        ctx.beginPath();
+        ctx.fillStyle='black';
+        ctx.rect(this.x, this.y + cuttoff, this.width, this.height - cuttoff);
+        ctx.fill();
+
+        ctx.beginPath();
+
+        // Create gradient
+        const grd = ctx.createLinearGradient(this.x + this.width / 2, this.y, this.x + this.width / 2, this.y + this.height);
         if(this.color == 0){
             grd.addColorStop(0, "#FF8282FF");
             grd.addColorStop(1, "red");
@@ -1164,15 +1174,6 @@ function createBlock(x, y, width, height, hits, type, color){
             grd.addColorStop(1, "#1f1f1f");
             ctx.shadowColor = "#1f1f1f";
         }
-        
-        ctx.beginPath();
-        ctx.fillStyle='black';
-        ctx.rect(this.x, this.y + cuttoff, this.width, this.height - cuttoff);
-        ctx.fill();
-
-        ctx.beginPath();
-
-        // Create gradient
         
         ctx.shadowOffsetX = 1;
         ctx.shadowOffsetY = 1;
@@ -2011,7 +2012,7 @@ function generateLevel(level, variation){//level(any) variation(0-1)
     
 }
 
-function destroyBlocks(blockIDList, fast=false){
+function destroyBlocks(blockIDList){
     //Sound
     for(var i = blockIDList.length - 1; i >= 0; i--){
         var block = blocks[blockIDList[i]];
@@ -2065,19 +2066,18 @@ function destroyBlocks(blockIDList, fast=false){
                 explosions.push(new createExplosion(block.x + block.width / 2, block.y + block.height / 2, 80));
                 
             }
-            if(!fast){
-                //Create particles
-                var random = Math.floor(Math.random() * 5) + 10;
-                for(var j = 0; j < random; j++){
-                    var xx = block.x + block.width / 2;
-                    var yy = block.y + block.height / 2;
-                    var aa = Math.random() * Math.PI * 2;
-                    var mm = Math.random() + 1;
-                    var x_vel = Math.cos(aa) * mm;
-                    var y_vel = Math.sin(aa) * mm;
-                    var color = block.color;
-                    particles.push(new createBlockParticle(xx, yy, x_vel, y_vel, color, 2))
-                }
+            
+            //Create particles
+            var random = Math.floor(Math.random() * 5) + 10;
+            for(var j = 0; j < random; j++){
+                var xx = block.x + block.width / 2;
+                var yy = block.y + block.height / 2;
+                var aa = Math.random() * Math.PI * 2;
+                var mm = Math.random() + 1;
+                var x_vel = Math.cos(aa) * mm;
+                var y_vel = Math.sin(aa) * mm;
+                var color = block.color;
+                particles.push(new createBlockParticle(xx, yy, x_vel, y_vel, color, 2))
             }
 
             blocks.splice(blockIDList[i], 1);
@@ -2115,8 +2115,9 @@ function createMessage(message, color, time){
         }
         if(--this.time < 0){
             return false;
+        }else{
+            return true;
         }
-        return true;
     }
 }
 
