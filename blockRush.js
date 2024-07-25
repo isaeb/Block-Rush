@@ -699,6 +699,7 @@ function createGame(){
                 this.state = 1;
                 this.level = 1;
                 this.lives = 1;
+                this.nextScore = 100;
                 messages.push(new createMessage("Level " + String(this.level), "green", 120));
                 this.newLevel();
 
