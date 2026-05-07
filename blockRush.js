@@ -1128,43 +1128,54 @@ function createBlock(x, y, width, height, hits, type, color){
 
         ctx = gameCanvas.context; //Set Context
         let grd = ctx.createLinearGradient(this.x + this.width / 2, this.y, this.x + this.width / 2, this.y + this.height);
-        if(this.color == 0){
-            grd.addColorStop(0, "#FF8282FF");
-            grd.addColorStop(1, "red");
-            ctx.shadowColor = "red";
-        }else if(this.color == 1){
-            grd.addColorStop(0, "#faf678");
-            grd.addColorStop(1, "#b0aa00");
-            ctx.shadowColor = "#b0aa00";
-        }else if(this.color == 2){
-            grd.addColorStop(0, "#8FFF87FF");
-            grd.addColorStop(1, "green");
-            ctx.shadowColor = "green";
-        }else if(this.color == 3){
-            grd.addColorStop(0, "#BFF8FFFF");
-            grd.addColorStop(1, "#21CCC1FF");
-            ctx.shadowColor = "#21CCC1FF";
-        }else if(this.color == 4){
-            grd.addColorStop(0, "#8CB2FFFF");
-            grd.addColorStop(1, "blue");
-            ctx.shadowColor = "blue";
-        }else if(this.color == 5){
-            grd.addColorStop(0, "#B982FFFF");
-            grd.addColorStop(1, "purple");
-            ctx.shadowColor = "purple";
-        }else if(this.color == 6){
-            grd.addColorStop(0, "#DD7DFFFF");
-            grd.addColorStop(1, "magenta");
-            ctx.shadowColor = "magenta";
-        }else if(this.color == 7){
-            grd.addColorStop(0, "#FF7AF1FF");
-            grd.addColorStop(1, "pink");
-            ctx.shadowColor = "pink";
-        }else if(this.color == 8){
-            grd.addColorStop(0, "#404040");
-            grd.addColorStop(1, "#1f1f1f");
-            ctx.shadowColor = "#1f1f1f";
+        switch(this.color){
+            case 0:
+                grd.addColorStop(0, "#FF8282FF");
+                grd.addColorStop(1, "red");
+                ctx.shadowColor = "red";
+                break;
+            case 1:
+                grd.addColorStop(0, "#faf678");
+                grd.addColorStop(1, "#b0aa00");
+                ctx.shadowColor = "#b0aa00";
+                break;
+            case 2:
+                grd.addColorStop(0, "#8FFF87FF");
+                grd.addColorStop(1, "green");
+                ctx.shadowColor = "green";
+                break;
+            case 3:
+                grd.addColorStop(0, "#BFF8FFFF");
+                grd.addColorStop(1, "#21CCC1FF");
+                ctx.shadowColor = "#21CCC1FF";
+                break;
+            case 4:
+                grd.addColorStop(0, "#8CB2FFFF");
+                grd.addColorStop(1, "blue");
+                ctx.shadowColor = "blue";
+                break;
+            case 5:
+                grd.addColorStop(0, "#B982FFFF");
+                grd.addColorStop(1, "purple");
+                ctx.shadowColor = "purple";
+                break;
+            case 6:
+                grd.addColorStop(0, "#DD7DFFFF");
+                grd.addColorStop(1, "magenta");
+                ctx.shadowColor = "magenta";
+                break;
+            case 7:
+                grd.addColorStop(0, "#FF7AF1FF");
+                grd.addColorStop(1, "pink");
+                ctx.shadowColor = "pink";
+                break;
+            case 8:
+                grd.addColorStop(0, "#404040");
+                grd.addColorStop(1, "#1f1f1f");
+                ctx.shadowColor = "#1f1f1f";
+                break;
         }
+        
         
         ctx.beginPath();
         ctx.fillStyle='black';
@@ -1177,7 +1188,8 @@ function createBlock(x, y, width, height, hits, type, color){
         
         ctx.shadowOffsetX = 1;
         ctx.shadowOffsetY = 1;
-        ctx.shadowBlur    = 6;
+        //ctx.shadowBlur    = 6;
+        ctx.shadowBlur    = 0;
         
         ctx.fillStyle = grd;
         ctx.strokeStyle = 'black';
